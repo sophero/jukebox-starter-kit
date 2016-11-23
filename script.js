@@ -1,26 +1,62 @@
 // Git requirements: 10+ commits, 3+ branches, 2+ issues.
 
-audioPlayer = document.querySelector(".audio-player");
-playButton = document.querySelector(".play-button");
-pauseButton = document.querySelector(".pause-button");
-volumeUp = document.querySelector(".volume-up");
-volumeDown = document.querySelector(".volume-down");
+var Jukebox = {
+	songs: [],
+	audioPlayer: document.querySelector(".audio-player"),
+	playButton: document.querySelector(".play-button"),
+	pauseButton: document.querySelector(".pause-button"),
+	volumeUpButton: document.querySelector(".volume-up"),
+	volumeDownButton: document.querySelector(".volume-down"),
+	
+	play: function() {
+		this.audioPlayer.play();
+	},
+	pause: function() {
+		this.audioPlayer.pause();
+	},
+	volumeUp: function() {
+		this.audioPlayer.volume += 0.1;
+	},
+	volumeDown: function() {
+		this.audioPlayer.volume -= 0.1;
+	}
 
-playButton.addEventListener("click", function() {
-	audioPlayer.play()
+	// addSong: function(newSong) {
+	// 	songs.push(newSong);
+	// },
+	// addSongArray: function(songArray) {
+	// 	songs = songs.concat(songArray);
+	// }
+}
+
+function Song(filename, artist, url) {
+	this.filename = filename;
+	this.artist = artist;
+	this.url = url;
+}
+
+
+
+
+Jukebox.playButton.addEventListener("click", function() {
+	Jukebox.play();
 });
 
-pauseButton.addEventListener("click", function() {
-	audioPlayer.pause()
+Jukebox.pauseButton.addEventListener("click", function() {
+	Jukebox.pause();
 });
 
-volumeUp.addEventListener("click", function() {
-	audioPlayer.volume += 0.1;
+Jukebox.volumeUpButton.addEventListener("click", function() {
+	Jukebox.volumeUp();
 });
 
-volumeDown.addEventListener("click", function() {
-	audioPlayer.volume -= 0.1;
+Jukebox.volumeDownButton.addEventListener("click", function() {
+	Jukebox.volumeDown();
 });
 
-// audioPlayer.play();
-// window.setTimeout(audioPlayer.pause(), 3000);
+// audioPlayer = document.querySelector(".audio-player");
+// playButton = document.querySelector(".play-button");
+// pauseButton = document.querySelector(".pause-button");
+// volumeUp = document.querySelector(".volume-up");
+// volumeDown = document.querySelector(".volume-down");
+
