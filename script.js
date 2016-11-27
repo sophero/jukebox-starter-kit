@@ -13,6 +13,7 @@ function jukeboxConstruct(songs) {
 	this.nowPlaying = document.querySelector(".now-playing");
 	this.loadButton = document.querySelector(".load-button");
 	this.songList = document.querySelector(".song-list");
+	this.changeSongButton = document.querySelector(".change-song-button");
 
 	// Audio playback controls
 	this.audioPlayer = document.querySelector(".audio-player");
@@ -83,8 +84,12 @@ function jukeboxConstruct(songs) {
 	}
 
 
-	this.changeSong = function(songToPlay) {
+	this.changeSong = function() {
+		var songIndex = prompt("Enter the song list index of the song you would like to play.");
+		var songToPlay = this.songs[songIndex - 1];
 		this.audioPlayer.src = songToPlay.url;
+
+		this.play();
 		this.nowPlaying.innerHTML = "Currently playing: " + 
 			songToPlay.artist + ' - ' + songToPlay.name;
 	}
@@ -151,6 +156,10 @@ Jukebox.volumeDownButton.addEventListener("click", function() {
 
 Jukebox.loadButton.addEventListener("click", function() {
 	Jukebox.loadSong();
+});
+
+Jukebox.changeSongButton.addEventListener("click", function() {
+	Jukebox.changeSong();
 })
 
 
