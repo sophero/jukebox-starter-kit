@@ -7,21 +7,24 @@ function Song(name, artist, url) {
 	this.url = url;
 }
 
-function SongCreator(url) {
+function songCreator() {
 	var inputUrl = prompt("Enter the url for your song.");
 	var inputName = prompt("Enter the song name.");
 	var inputArtist = prompt("Enter the song artist.");
-		
+	Jukebox.addSong(new Song(inputName, inputArtist, inputUrl));
 }
 
 function jukeboxConstruct(songs) {
 	this.songs = songs;
+	this.nowPlaying = document.querySelector(".now-playing");
+
 
 	this.audioPlayer = document.querySelector(".audio-player");
 	this.playButton = document.querySelector(".play-button");
 	this.pauseButton = document.querySelector(".pause-button");
 	this.volumeUpButton = document.querySelector(".volume-up");
 	this.volumeDownButton = document.querySelector(".volume-down");
+
 
 	this.checkSongArray = function() {
 		if (typeof this.songs !== "array") {
@@ -53,6 +56,7 @@ function jukeboxConstruct(songs) {
 
 	this.changeSong = function(songToPlay) {
 		this.audioPlayer.src = songToPlay.url;
+		this.nowPlaying.innerHTML = songToPlay.artist + ' - ' + songToPlay.name;
 	}
 
 	// this.createPlaylist
@@ -115,3 +119,4 @@ Jukebox.addSong(meshuggahClockworks);
 Jukebox.addSong(new Song("Specific Meaning in a Group of Dots", "Entheos", "audio-files/01 Specific Meaning in a Group of Dots.mp3"));
 
 Jukebox.changeSong(meshuggahClockworks);
+
