@@ -18,6 +18,8 @@ function jukeboxConstruct(songs) {
 	this.volumeUpButton = document.querySelector(".volume-up");
 	this.volumeDownButton = document.querySelector(".volume-down");
 
+	this.loadButton = document.querySelector(".load-button");
+
 	this.play = function() {
 		this.audioPlayer.play();
 	}
@@ -87,9 +89,10 @@ function jukeboxConstruct(songs) {
 var Jukebox = new jukeboxConstruct();
 
 
-// Adding button functionality. For some reason I couldn't get this
-// to work as a method on jukeboxConstruct. Using this. didn't work,
-// I had to specify Jukebox! wtf?
+// Adding button functionality.
+// For some reason I couldn't get addEventListneres to work when called
+// from within jukeboxConstruct. Using this.etc didn't work, I 
+// had to specify Jukebox. What's going on?
 
 Jukebox.playButton.addEventListener("click", function() {
 	Jukebox.play();
@@ -104,11 +107,14 @@ Jukebox.volumeDownButton.addEventListener("click", function() {
 	Jukebox.volumeDown();
 });
 
+Jukebox.loadButton.addEventListener("click", function() {
+	Jukebox.loadSong();
+})
 
-// Loading songs
+
+// Test files
 
 var meshuggahClockworks = new Song("Clockworks", "Meshuggah", "audio-files/meshuggah-01-clockworks.mp3");
-// var 
 
 Jukebox.addSong(meshuggahClockworks);
 Jukebox.addSong(new Song("Specific Meaning in a Group of Dots", "Entheos", "audio-files/01 Specific Meaning in a Group of Dots.mp3"));
