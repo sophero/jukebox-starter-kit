@@ -86,18 +86,19 @@ function jukeboxConstruct(songs) {
 
 	this.changeSong = function() {
 		var songIndex = prompt("Enter the song list index of the song you would like to play.");
+		
 		var songToPlay = this.songs[songIndex - 1];
 		this.audioPlayer.src = songToPlay.url;
 
 		this.play();
-		this.nowPlaying.innerHTML = "Currently playing: " + 
-			songToPlay.artist + ' - ' + songToPlay.name;
+		this.nowPlaying.innerHTML = songToPlay.artist + ' - ' 
+			+ songToPlay.name;
 	}
 
 	// this.createPlaylist
 
 	this.listSongs = function() {
-		this.songNameArray = [];
+		// this.songNameArray = [];
 		this.songList.innerHTML = "";
 
 		for (var k = 0; k < this.songs.length; k++) {
@@ -105,11 +106,11 @@ function jukeboxConstruct(songs) {
 			this.songList.innerHTML += "<li>" + this.songs[k].artist + " - " 
 				+ this.songs[k].name + "</li>";
 
+			// this.songNameArray[k] = this.songs[k].artist + ' - ' 
+				// + this.songs[k].name;
 
-			this.songNameArray[k] = this.songs[k].artist + ' - ' 
-				+ this.songs[k].name;
 		}
-		return this.songNameArray;
+		// return this.songNameArray;
 	}
 
 	// Check for input array.
