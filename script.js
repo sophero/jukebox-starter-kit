@@ -1,5 +1,4 @@
-
-// Git requirements: 10+ commits, 3+ branches, 2+ issues.
+// 
 
 function Song(name, artist, url) {
 	this.name = name;
@@ -35,7 +34,6 @@ function jukeboxConstruct(songs) {
 	this.volumeDown = function() {
 		this.audioPlayer.volume -= 0.1;
 	}
-
 
 	this.addSong = function(newSong) {
 		this.songs.push(newSong);
@@ -81,14 +79,29 @@ function jukeboxConstruct(songs) {
 			}
 		}
 
-		Jukebox.addSong(new Song(inputName, inputArtist, inputUrl));
+		// Check for valid input before creating object.
+
+		if (inputUrl != null && inputName != null && inputArtist != null) {
+			Jukebox.addSong(new Song(inputName, inputArtist, inputUrl));
+
+		} else {
+			alert("Error: Required input missing.");
+		}
+
 	}
 
 
 	this.chooseSong = function() {
 		var songIndex = prompt("Enter the number from the song list of the song you would like to play.");
 		var songToPlay = this.songs[songIndex - 1];
-		this.changeSong(songToPlay);
+
+		if (typeof songToPlay === "object") {
+			this.changeSong(songToPlay);
+
+		} else {
+			alert("Error: " + songIndex + " not found in song list.");
+		}
+
 	}
 
 	this.changeSong = function(songToPlay) {
@@ -104,10 +117,7 @@ function jukeboxConstruct(songs) {
 		this.changeSong(songToPlay);
 	}
 
-	// this.createPlaylist
-
 	this.listSongs = function() {
-		// this.songNameArray = [];
 		this.songList.innerHTML = "";
 
 		for (var k = 0; k < this.songs.length; k++) {
@@ -115,11 +125,7 @@ function jukeboxConstruct(songs) {
 			this.songList.innerHTML += "<li>" + this.songs[k].artist + " - " 
 				+ this.songs[k].name + "</li>";
 
-			// this.songNameArray[k] = this.songs[k].artist + ' - ' 
-				// + this.songs[k].name;
-
 		}
-		// return this.songNameArray;
 	}
 
 	// Check for input array.
@@ -140,15 +146,12 @@ function jukeboxConstruct(songs) {
 // ----------------------------	//
 
 
-// Something here like:
-// var userInput = 
-
 var Jukebox = new jukeboxConstruct();
 
 
 // Adding button functionality.
-// For some reason I couldn't get addEventListneres to work when called
-// from within jukeboxConstruct. Using this.etc didn't work, I 
+// For some reason I couldn't get addEventListener to work when it was
+// called from within JukeboxBlueprint. Using this.etc didn't work, I 
 // had to specify Jukebox. What's going on?
 
 Jukebox.playButton.addEventListener("click", function() {
@@ -163,25 +166,19 @@ Jukebox.volumeUpButton.addEventListener("click", function() {
 Jukebox.volumeDownButton.addEventListener("click", function() {
 	Jukebox.volumeDown();
 });
-
 Jukebox.loadButton.addEventListener("click", function() {
 	Jukebox.loadSong();
 });
-
 Jukebox.chooseSongButton.addEventListener("click", function() {
 	Jukebox.chooseSong();
 })
-
 Jukebox.randomSongButton.addEventListener("click", function() {
 	Jukebox.randomSong();
 })
 
-// Test files
 
-var meshuggahClockworks = new Song("Clockworks", "Meshuggah", "audio-files/meshuggah-01-clockworks.mp3");
+// Adding songs
 
-Jukebox.addSong(meshuggahClockworks);
+Jukebox.addSong(new Song("Clockworks", "Meshuggah", "audio-files/meshuggah-01-clockworks.mp3"));
 Jukebox.addSong(new Song("Specific Meaning in a Group of Dots", "Entheos", "audio-files/01 Specific Meaning in a Group of Dots.mp3"));
-
-// Jukebox.changeSong(meshuggahClockworks);
-
+Jukebox.addSong(new Song("Into Decay", "Meshuggah", "audio-files/10 Meshuggah - Into Decay.mp3"));
