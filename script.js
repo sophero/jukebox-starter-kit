@@ -7,13 +7,6 @@ function Song(name, artist, url) {
 	this.url = url;
 }
 
-function songCreator() {
-	var inputUrl = prompt("Enter the url for your song.");
-	var inputName = prompt("Enter the song name.");
-	var inputArtist = prompt("Enter the song artist.");
-	Jukebox.addSong(new Song(inputName, inputArtist, inputUrl));
-}
-
 function jukeboxConstruct(songs) {
 	this.songs = songs;
 	this.nowPlaying = document.querySelector(".now-playing");
@@ -24,22 +17,6 @@ function jukeboxConstruct(songs) {
 	this.pauseButton = document.querySelector(".pause-button");
 	this.volumeUpButton = document.querySelector(".volume-up");
 	this.volumeDownButton = document.querySelector(".volume-down");
-
-
-	this.checkSongArray = function() {
-		if (typeof this.songs !== "array") {
-			this.songs = [];
-			console.log("Song list empty");
-		}
-	}
-	this.checkSongArray();
-
-	this.addSong = function(newSong) {
-		this.songs.push(newSong);
-	}
-	this.addSongArray = function(songArray) {
-		this.songs = this.songs.concat(songArray);
-	}
 
 	this.play = function() {
 		this.audioPlayer.play();
@@ -54,18 +31,27 @@ function jukeboxConstruct(songs) {
 		this.audioPlayer.volume -= 0.1;
 	}
 
+	this.addSong = function(newSong) {
+		this.songs.push(newSong);
+	}
+	this.addSongArray = function(songArray) {
+		this.songs = this.songs.concat(songArray);
+	}
+
+	this.loadSong = function() {
+		var inputUrl = prompt("Enter the url for your song.");
+		var inputName = prompt("Enter the song name.");
+		var inputArtist = prompt("Enter the song artist.");
+		Jukebox.addSong(new Song(inputName, inputArtist, inputUrl));
+	}
+
+
 	this.changeSong = function(songToPlay) {
 		this.audioPlayer.src = songToPlay.url;
 		this.nowPlaying.innerHTML = songToPlay.artist + ' - ' + songToPlay.name;
 	}
 
 	// this.createPlaylist
-
-	this.loadSong = function(songUrl) {
-		// This should basically be the addSong function with a user prompt
-		// 	or html form for input
-		// Need to create a playlist attribute? and peripheral functions
-	}
 
 	this.listSongs = function() {
 		this.songNameArray = [];
@@ -77,6 +63,15 @@ function jukeboxConstruct(songs) {
 		}
 		return this.songNameArray;
 	}
+
+	this.checkSongArray = function() {
+		if (typeof this.songs !== "array") {
+			this.songs = [];
+			console.log("Song list empty");
+		}
+	}
+	this.checkSongArray();
+
 }
 
 // ----------------------------	//
