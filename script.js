@@ -7,6 +7,13 @@ function Song(name, artist, url) {
 	this.url = url;
 }
 
+function SongCreator(url) {
+	var inputUrl = prompt("Enter the url for your song.");
+	var inputName = prompt("Enter the song name.");
+	var inputArtist = prompt("Enter the song artist.");
+		
+}
+
 function jukeboxConstruct(songs) {
 	this.songs = songs;
 
@@ -19,31 +26,13 @@ function jukeboxConstruct(songs) {
 	this.checkSongArray = function() {
 		if (typeof this.songs !== "array") {
 			this.songs = [];
+			console.log("Song list empty");
 		}
 	}
 	this.checkSongArray();
 
-	this.initDOM = function() {
-		this.playButton.addEventListener("click", function() {
-			this.play();
-		})
-	}
-// Jukebox.playButton.addEventListener("click", function() {
-// 	Jukebox.play();
-// });
-// Jukebox.pauseButton.addEventListener("click", function() {
-// 	Jukebox.pause();
-// });
-// Jukebox.volumeUpButton.addEventListener("click", function() {
-// 	Jukebox.volumeUp();
-// });
-// Jukebox.volumeDownButton.addEventListener("click", function() {
-// 	Jukebox.volumeDown();
-// });
-
-
 	this.addSong = function(newSong) {
-		this.songs = this.songs.push(newSong);
+		this.songs.push(newSong);
 	}
 	this.addSongArray = function(songArray) {
 		this.songs = this.songs.concat(songArray);
@@ -63,12 +52,15 @@ function jukeboxConstruct(songs) {
 	}
 
 	this.changeSong = function(songToPlay) {
-		this.audioPlayer.src = '"' + songToPlay.url + '"';
+		this.audioPlayer.src = songToPlay.url;
 	}
 
+	// this.createPlaylist
+
 	this.loadSong = function(songUrl) {
-		// I'm not really sure what this means yet. 
-		// Need to create a playlist attribute and peripheral functions
+		// This should basically be the addSong function with a user prompt
+		// 	or html form for input
+		// Need to create a playlist attribute? and peripheral functions
 	}
 
 	this.listSongs = function() {
@@ -76,10 +68,10 @@ function jukeboxConstruct(songs) {
 
 		for (var k = 0; k < this.songs.length; k++) {
 
-			songNameArray[k] = this.songs[k].artist + ' - ' 
+			this.songNameArray[k] = this.songs[k].artist + ' - ' 
 				+ this.songs[k].name;
 		}
-		return songNameArray;
+		return this.songNameArray;
 	}
 }
 
@@ -96,28 +88,30 @@ function jukeboxConstruct(songs) {
 var Jukebox = new jukeboxConstruct();
 
 
-// Adding button functionality
+// Adding button functionality. For some reason I couldn't get this
+// to work as a method on jukeboxConstruct. Using this. didn't work,
+// I had to specify Jukebox! wtf?
 
-// Jukebox.playButton.addEventListener("click", function() {
-// 	Jukebox.play();
-// });
-// Jukebox.pauseButton.addEventListener("click", function() {
-// 	Jukebox.pause();
-// });
-// Jukebox.volumeUpButton.addEventListener("click", function() {
-// 	Jukebox.volumeUp();
-// });
-// Jukebox.volumeDownButton.addEventListener("click", function() {
-// 	Jukebox.volumeDown();
-// });
+Jukebox.playButton.addEventListener("click", function() {
+	Jukebox.play();
+});
+Jukebox.pauseButton.addEventListener("click", function() {
+	Jukebox.pause();
+});
+Jukebox.volumeUpButton.addEventListener("click", function() {
+	Jukebox.volumeUp();
+});
+Jukebox.volumeDownButton.addEventListener("click", function() {
+	Jukebox.volumeDown();
+});
 
 
 // Loading songs
 
-var meshuggahClockworks = new Song("Clockworks", "Meshuggah", "audio-files/01 Clockworks.mp3");
-var 
+var meshuggahClockworks = new Song("Clockworks", "Meshuggah", "audio-files/meshuggah-01-clockworks.mp3");
+// var 
 
-Jukebox.addSong();
+Jukebox.addSong(meshuggahClockworks);
 Jukebox.addSong(new Song("Specific Meaning in a Group of Dots", "Entheos", "audio-files/01 Specific Meaning in a Group of Dots.mp3"));
 
-Jukebox.changeSong()
+Jukebox.changeSong(meshuggahClockworks);
