@@ -9,16 +9,17 @@ function Song(name, artist, url) {
 
 function jukeboxConstruct(songs) {
 	this.songs = songs;
+
 	this.nowPlaying = document.querySelector(".now-playing");
+	this.loadButton = document.querySelector(".load-button");
+	this.songList = document.querySelector(".song-list");
 
-
+	// Audio playback controls
 	this.audioPlayer = document.querySelector(".audio-player");
 	this.playButton = document.querySelector(".play-button");
 	this.pauseButton = document.querySelector(".pause-button");
 	this.volumeUpButton = document.querySelector(".volume-up");
 	this.volumeDownButton = document.querySelector(".volume-down");
-
-	this.loadButton = document.querySelector(".load-button");
 
 	this.play = function() {
 		this.audioPlayer.play();
@@ -33,6 +34,7 @@ function jukeboxConstruct(songs) {
 		this.audioPlayer.volume -= 0.1;
 	}
 
+
 	this.addSong = function(newSong) {
 		this.songs.push(newSong);
 	}
@@ -42,15 +44,46 @@ function jukeboxConstruct(songs) {
 
 	this.loadSong = function() {
 		var inputUrl = prompt("Enter the url for your song.");
+
+		if (inputUrl == "") {
+			alert("Please enter a valid url.");
+			inputUrl = prompt("Enter the url for your song.");
+			if (inputUrl == "") {
+				alert("Error: valid URL required.");
+				return
+			}
+		}
+
 		var inputName = prompt("Enter the song name.");
+
+		if (inputName == "") {
+			alert("Please enter a valid name.");
+			inputName = prompt("Enter the song name.");
+			if (inputName == "") {
+				alert("Error: song name required.");
+				return
+			}
+		}
+
 		var inputArtist = prompt("Enter the song artist.");
+
+		if (inputArtist == "") {
+			alert("Please enter a valid artist.");
+			inputArtist = prompt("Enter the song artist.");
+			if (inputArtist == "") {
+				alert("Error: artist name required.");
+				return
+			}
+		}
+
 		Jukebox.addSong(new Song(inputName, inputArtist, inputUrl));
 	}
 
 
 	this.changeSong = function(songToPlay) {
 		this.audioPlayer.src = songToPlay.url;
-		this.nowPlaying.innerHTML = songToPlay.artist + ' - ' + songToPlay.name;
+		this.nowPlaying.innerHTML = "Currently playing: " + 
+			songToPlay.artist + ' - ' + songToPlay.name;
 	}
 
 	// this.createPlaylist
