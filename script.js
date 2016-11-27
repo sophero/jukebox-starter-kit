@@ -13,7 +13,8 @@ function jukeboxConstruct(songs) {
 	this.nowPlaying = document.querySelector(".now-playing");
 	this.loadButton = document.querySelector(".load-button");
 	this.songList = document.querySelector(".song-list");
-	this.changeSongButton = document.querySelector(".change-song-button");
+	this.chooseSongButton = document.querySelector(".choose-song-button");
+	this.randomSongButton = document.querySelector(".random-song");
 
 	// Audio playback controls
 	this.audioPlayer = document.querySelector(".audio-player");
@@ -84,15 +85,23 @@ function jukeboxConstruct(songs) {
 	}
 
 
-	this.changeSong = function() {
-		var songIndex = prompt("Enter the song list index of the song you would like to play.");
-		
+	this.chooseSong = function() {
+		var songIndex = prompt("Enter the number from the song list of the song you would like to play.");
 		var songToPlay = this.songs[songIndex - 1];
-		this.audioPlayer.src = songToPlay.url;
+		this.changeSong(songToPlay);
+	}
 
+	this.changeSong = function(songToPlay) {
+		this.audioPlayer.src = songToPlay.url;
 		this.play();
 		this.nowPlaying.innerHTML = songToPlay.artist + ' - ' 
 			+ songToPlay.name;
+	}
+
+	this.randomSong = function() {
+		var randInt = Math.floor(Math.random() * this.songs.length);
+		var songToPlay = this.songs[randInt];
+		this.changeSong(songToPlay);
 	}
 
 	// this.createPlaylist
@@ -159,10 +168,13 @@ Jukebox.loadButton.addEventListener("click", function() {
 	Jukebox.loadSong();
 });
 
-Jukebox.changeSongButton.addEventListener("click", function() {
-	Jukebox.changeSong();
+Jukebox.chooseSongButton.addEventListener("click", function() {
+	Jukebox.chooseSong();
 })
 
+Jukebox.randomSongButton.addEventListener("click", function() {
+	Jukebox.randomSong();
+})
 
 // Test files
 
